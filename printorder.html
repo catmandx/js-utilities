@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>Calculate print order</title>
+</head>
+<body>
+  <div><input id='start' onkeyup='calculate()'></div>
+  <div><input id='end' onkeyup='calculate()'></div>
+  <div id='range1'></div>
+  <div id='range2'></div>
+  <script>
+    function calculate(){
+      var a = document.getElementById('start').value;
+      var b = document.getElementById('end').value;
+      var str1="";
+      for(let i=b; i>=a ; i--){
+          if(i%2==0){
+              str1+=i+","
+          }
+      }
+      console.log(str1);
+      document.getElementById('range1').innerText = str1
+      
+      str1="";
+      for(let i=a; i<=b ; i++){
+          if(i%2==1){
+              str1+=i+","
+          }
+      }
+      console.log(str1)
+      document.getElementById('range2').innerText = str1
+    }
+  </script>
+
+</body>
+</html>
