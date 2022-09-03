@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <input type="text" name="" id="string" onkeyup="process(this)">
+        <div id="result" style="font-family: monospace;"></div>
+        <div id="result2" style="font-family: monospace;"></div>
+        <script>
+            function process(data){
+                document.getElementById('result').innerHTML = ''
+                let text = data.value;
+                let result = []
+                for (let i = 0; i < 3; i++) {
+                    let str = '1'.repeat(i) + text;
+                    let b64str = btoa(str)
+                    b64str = b64str.replaceAll('=', '')
+                    b64str = b64str.slice((i > 0? i + 1 : i), -1)
+                    document.getElementById('result').innerHTML += `<p>${b64str}</p>`
+                    result.push(b64str)
+                }
+                let regex = '/' + result.join('|') + '/'
+                let filter = '| filter @message like /Authorization/\n| parse @message /(?i)"name":"Authorization","value":"(?<jwt>[^"]+)/\n| filter jwt like ' + regex;
+                document.getElementById('result2').innerText = filter
+
+            }
+        </script>
+    </body>
+</html>
