@@ -1,0 +1,25 @@
+<head>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+</head>
+<body>
+    <textarea id="text1" onkeyup=""></textarea>
+    <textarea id="text2" onkeyup="extract()"></textarea>
+    
+        <pre><code id="res" class="language-java">...</code></pre>
+    <script>
+        function extract(){
+            let text = document.getElementById('text1').value
+            // var matches = .test(text)
+            const arr = [...text.matchAll(/^ *(@.*)\n  .* ([^ ]*\()/gm)];
+            console.log(arr)
+            let text2 = document.getElementById('text2').value
+            arr.forEach(match => {
+                text2 = text2.replace(new RegExp('^.*'+match[2].replace('(','\\('), 'gm'), match[1]+'\n$&')
+            })
+            let res = document.getElementById('res').innerText = text2
+            // hljs.highlightAll();
+        }
+    </script>
+</body>
